@@ -12,7 +12,7 @@ class Parser(var input: Lexer) {
     else throw new RuntimeException("expecting " + tokenType + "; found " + lookahead)
   }
 
-  private def jNumber(): JNumber = {
+  private def jNumber(): Json = {
     if (lookahead.tokenType eq TokenType.NUMBER) {
       val number = lookahead.value.asInstanceOf[Number]
       consume()
@@ -22,26 +22,26 @@ class Parser(var input: Lexer) {
     }
   }
 
-  private def jNull(): JNull = {
+  private def jNull(): Json = {
     if (lookahead.tokenType eq TokenType.NULL) {
       consume()
-      JNull()
+      JNull
     } else {
       throw new RuntimeException("jNull error, found: " + lookahead)
     }
   }
 
-  private def jBool(): JBool = {
+  private def jBool(): Json = {
     if (lookahead.tokenType eq TokenType.BOOL) {
       val boolVal = lookahead.value.asInstanceOf[Boolean]
       consume()
-      JBool(boolVal)
+      if (boolVal) JTrue else JFalse
     } else {
       throw new RuntimeException("jBool error, found: " + lookahead)
     }
   }
 
-  private def jString(): JString = {
+  private def jString(): Json = {
     if (lookahead.tokenType eq TokenType.STRING) {
       val strVal = lookahead.value.asInstanceOf[String]
       consume()
@@ -51,7 +51,7 @@ class Parser(var input: Lexer) {
     }
   }
 
-  private def jObject(): JObject = {
+  private def jObject(): Json = {
     matchToken(TokenType.L_CURLY_BRACKET)
     var keyValues = List[(String, Json)]()
     var done = false
@@ -71,7 +71,7 @@ class Parser(var input: Lexer) {
     JObject(keyValues)
   }
 
-  private def jArray(): JArray = {
+  private def jArray(): Json = {
     matchToken(TokenType.L_SQUARE_BRACKET)
     var elements = List[Json]()
     var done = false

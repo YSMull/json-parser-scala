@@ -7,8 +7,9 @@ object Main {
       case JObject(keyValues) => "{" + keyValues.map(kv => s"\"${kv._1}\":${minify(kv._2)}").mkString(",") + "}"
       case JNumber(number) => number.toString
       case JString(str) => s"\"${str}\""
-      case JBool(bool) => bool.toString
-      case JNull() => "null"
+      case JTrue => "true"
+      case JFalse => "false"
+      case JNull => "null"
     }
   }
 

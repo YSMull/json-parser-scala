@@ -4,9 +4,13 @@ case class JNumber(value: Number) extends Json
 
 case class JString(value: String) extends Json
 
-case class JBool(value: Boolean) extends Json
+sealed trait JBool extends Json
 
-case class JNull() extends Json
+case object JTrue extends JBool
+
+case object JFalse extends JBool
+
+case object JNull extends Json
 
 case class JArray(elements: List[Json]) extends Json
 
