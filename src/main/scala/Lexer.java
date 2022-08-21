@@ -10,7 +10,7 @@ public class Lexer {
 
     public Lexer(String input) {
         this.input = input;
-        this.c = input.charAt(c);
+        this.c = input.charAt(pos);
     }
 
     public void consume() {

@@ -53,7 +53,7 @@ class Parser(var input: Lexer) {
 
   private def jObject(): Json = {
     matchToken(TokenType.L_CURLY_BRACKET)
-    var keyValues = List[(String, Json)]()
+    var keyValues = Vector[(String, Json)]()
     var done = false
     while ((lookahead.tokenType eq TokenType.STRING) && !done) {
       val key = lookahead.value.asInstanceOf[String]
@@ -73,7 +73,7 @@ class Parser(var input: Lexer) {
 
   private def jArray(): Json = {
     matchToken(TokenType.L_SQUARE_BRACKET)
-    var elements = List[Json]()
+    var elements = Vector[Json]()
     var done = false
     while (!(lookahead.tokenType eq TokenType.R_SQUARE_BRACKET) && !done) {
       elements = elements :+ json()

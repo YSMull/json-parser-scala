@@ -12,6 +12,6 @@ case object JFalse extends JBool
 
 case object JNull extends Json
 
-case class JArray(elements: List[Json]) extends Json
+case class JArray(elements: Vector[Json]) extends Json
 
-case class JObject(keyValues: List[(String, Json)]) extends Json
+case class JObject(keyValues: Vector[(String, Json)]) extends Json
